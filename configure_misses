@@ -1,0 +1,19 @@
+Configure miss: VALGRIND
+Configure miss: whether to build plugin documentation
+Configure miss: ORC
+Configure miss: whether to build static plugins or not
+Configure miss: winsock2.h usability
+Configure miss: winsock2.h presence
+Configure miss: winsock2.h
+Configure miss: a52_init in -la52
+Configure miss: AMRNB
+Configure miss: AMRWB
+Configure miss: CDIO
+Configure miss: DVDOpen in -ldvdread
+Configure miss: lame_init in -lmp3lame
+Configure miss: MPEG2DEC
+Configure miss: libsidplay 1.36.x... checking sidplay/player.h usability
+Configure miss: sidplay/player.h presence
+Configure miss: sidplay/player.h
+Configure miss: TWOLAME
+Configure miss: X264

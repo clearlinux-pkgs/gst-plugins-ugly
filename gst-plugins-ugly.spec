@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x0668CC1486C2D7B5 (slomo@debian.org)
 #
 Name     : gst-plugins-ugly
-Version  : 1.12.1
-Release  : 1
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.12.1.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.12.1.tar.xz
-Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.12.1.tar.xz.asc
+Version  : 1.12.2
+Release  : 2
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.12.2.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.12.2.tar.xz
+Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.12.2.tar.xz.asc
 Summary  : Streaming media framework, ugly plugins, uninstalled
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -57,14 +57,14 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.12.1
+%setup -q -n gst-plugins-ugly-1.12.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1498145354
+export SOURCE_DATE_EPOCH=1500044859
 %configure --disable-static
 make V=1  %{?_smp_mflags}
 
@@ -76,7 +76,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1498145354
+export SOURCE_DATE_EPOCH=1500044859
 rm -rf %{buildroot}
 %make_install
 %find_lang gst-plugins-ugly-1.0

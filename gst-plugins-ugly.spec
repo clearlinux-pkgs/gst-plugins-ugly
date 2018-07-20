@@ -5,26 +5,25 @@
 # Source0 file verified with key 0x5D2EEE6F6F349D7C (tim@centricular.com)
 #
 Name     : gst-plugins-ugly
-Version  : 1.14.1
-Release  : 10
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.1.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.1.tar.xz
-Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.1.tar.xz.asc
+Version  : 1.14.2
+Release  : 11
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.2.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.2.tar.xz
+Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.2.tar.xz.asc
 Summary  : Streaming media framework, ugly plugins, uninstalled
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: gst-plugins-ugly-lib
+Requires: gst-plugins-ugly-license
 Requires: gst-plugins-ugly-locales
+BuildRequires : buildreq-meson
 BuildRequires : docbook-xml
 BuildRequires : gtk-doc
 BuildRequires : gtk-doc-dev
 BuildRequires : libxslt-bin
-BuildRequires : meson
-BuildRequires : ninja
 BuildRequires : pkgconfig(gmodule-no-export-2.0)
 BuildRequires : pkgconfig(gstreamer-1.0)
 BuildRequires : pkgconfig(gstreamer-plugins-base-1.0)
-BuildRequires : python3
 BuildRequires : valgrind
 
 %description
@@ -44,9 +43,18 @@ doc components for the gst-plugins-ugly package.
 %package lib
 Summary: lib components for the gst-plugins-ugly package.
 Group: Libraries
+Requires: gst-plugins-ugly-license
 
 %description lib
 lib components for the gst-plugins-ugly package.
+
+
+%package license
+Summary: license components for the gst-plugins-ugly package.
+Group: Default
+
+%description license
+license components for the gst-plugins-ugly package.
 
 
 %package locales
@@ -58,14 +66,14 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.14.1
+%setup -q -n gst-plugins-ugly-1.14.2
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1526722619
+export SOURCE_DATE_EPOCH=1532093628
 %configure --disable-static
 make  %{?_smp_mflags}
 
@@ -77,8 +85,10 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1526722619
+export SOURCE_DATE_EPOCH=1532093628
 rm -rf %{buildroot}
+mkdir -p %{buildroot}/usr/share/doc/gst-plugins-ugly
+cp COPYING %{buildroot}/usr/share/doc/gst-plugins-ugly/COPYING
 %make_install
 %find_lang gst-plugins-ugly-1.0
 
@@ -86,7 +96,7 @@ rm -rf %{buildroot}
 %defattr(-,root,root,-)
 
 %files doc
-%defattr(-,root,root,-)
+%defattr(0644,root,root,0755)
 /usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/ch01.html
 /usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/ch02.html
 /usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-1.0.devhelp2
@@ -133,6 +143,10 @@ rm -rf %{buildroot}
 /usr/lib64/gstreamer-1.0/libgstdvdsub.so
 /usr/lib64/gstreamer-1.0/libgstrealmedia.so
 /usr/lib64/gstreamer-1.0/libgstxingmux.so
+
+%files license
+%defattr(-,root,root,-)
+/usr/share/doc/gst-plugins-ugly/COPYING
 
 %files locales -f gst-plugins-ugly-1.0.lang
 %defattr(-,root,root,-)

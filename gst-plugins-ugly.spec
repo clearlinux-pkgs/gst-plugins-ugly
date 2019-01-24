@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x5D2EEE6F6F349D7C (tim@centricular.com)
 #
 Name     : gst-plugins-ugly
-Version  : 1.14.4
-Release  : 14
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.4.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.4.tar.xz
-Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.14.4.tar.xz.asc
+Version  : 1.15.1
+Release  : 15
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.15.1.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.15.1.tar.xz
+Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.15.1.tar.xz.asc
 Summary  : Streaming media framework, ugly plugins, uninstalled
 Group    : Development/Tools
 License  : LGPL-2.1
@@ -27,7 +27,7 @@ BuildRequires : pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires : valgrind
 
 %description
-GStreamer 1.13.x development series
+GStreamer 1.15.x development series
 WHAT IT IS
 ----------
 This is GStreamer, a framework for streaming media.
@@ -66,14 +66,14 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.14.4
+%setup -q -n gst-plugins-ugly-1.15.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1547489544
+export SOURCE_DATE_EPOCH=1548289733
 %reconfigure --disable-static
 make  %{?_smp_mflags}
 
@@ -85,7 +85,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1547489544
+export SOURCE_DATE_EPOCH=1548289733
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gst-plugins-ugly
 cp COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/COPYING

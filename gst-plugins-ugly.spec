@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x5D2EEE6F6F349D7C (tim@centricular.com)
 #
 Name     : gst-plugins-ugly
-Version  : 1.15.2
-Release  : 18
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.15.2.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.15.2.tar.xz
-Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.15.2.tar.xz.asc
-Summary  : Streaming media framework, ugly plugins, uninstalled
+Version  : 1.16.0
+Release  : 19
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz
+Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz.asc
+Summary  : GStreamer Multimedia Framework Ugly Plugins
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: gst-plugins-ugly-lib = %{version}-%{release}
@@ -27,10 +27,15 @@ BuildRequires : pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires : valgrind
 
 %description
-GStreamer 1.15.x development series
-WHAT IT IS
-----------
-This is GStreamer, a framework for streaming media.
+ASF Demuxer Plugin
+==================
+Overview
+--------
+This plugin is a demuxer for Microsoft's ASF Advanced Streaming Format
+or ASF [1]. This demuxer only supports ASF v1.0 since the vast
+majority of existing ASF files use that version. The specification
+has been derived from a third party source [2] without reference to
+the original.
 
 %package doc
 Summary: doc components for the gst-plugins-ugly package.
@@ -66,15 +71,14 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.15.2
+%setup -q -n gst-plugins-ugly-1.16.0
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1551392385
-export LDFLAGS="${LDFLAGS} -fno-lto"
+export SOURCE_DATE_EPOCH=1555680586
 %reconfigure --disable-static
 make  %{?_smp_mflags}
 
@@ -86,7 +90,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1551392385
+export SOURCE_DATE_EPOCH=1555680586
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gst-plugins-ugly
 cp COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/COPYING

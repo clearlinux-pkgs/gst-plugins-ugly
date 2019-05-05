@@ -6,11 +6,11 @@
 #
 Name     : gst-plugins-ugly
 Version  : 1.16.0
-Release  : 19
+Release  : 20
 URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz
 Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz
 Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz.asc
-Summary  : GStreamer Multimedia Framework Ugly Plugins
+Summary  : GStreamer open-source multimedia framework ugly plugins
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: gst-plugins-ugly-lib = %{version}-%{release}
@@ -78,7 +78,14 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C
-export SOURCE_DATE_EPOCH=1555680586
+export SOURCE_DATE_EPOCH=1557094023
+export AR=gcc-ar
+export RANLIB=gcc-ranlib
+export NM=gcc-nm
+export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
+export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 %reconfigure --disable-static
 make  %{?_smp_mflags}
 
@@ -90,7 +97,7 @@ export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1555680586
+export SOURCE_DATE_EPOCH=1557094023
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gst-plugins-ugly
 cp COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/COPYING

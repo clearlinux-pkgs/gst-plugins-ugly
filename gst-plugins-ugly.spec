@@ -5,12 +5,12 @@
 # Source0 file verified with key 0x5D2EEE6F6F349D7C (tim@centricular.com)
 #
 Name     : gst-plugins-ugly
-Version  : 1.16.0
-Release  : 20
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz
-Source99 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.0.tar.xz.asc
-Summary  : GStreamer open-source multimedia framework ugly plugins
+Version  : 1.16.1
+Release  : 21
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.1.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.1.tar.xz
+Source1 : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.1.tar.xz.asc
+Summary  : Streaming media framework, ugly plugins, uninstalled
 Group    : Development/Tools
 License  : LGPL-2.1
 Requires: gst-plugins-ugly-lib = %{version}-%{release}
@@ -27,15 +27,10 @@ BuildRequires : pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires : valgrind
 
 %description
-ASF Demuxer Plugin
-==================
-Overview
---------
-This plugin is a demuxer for Microsoft's ASF Advanced Streaming Format
-or ASF [1]. This demuxer only supports ASF v1.0 since the vast
-majority of existing ASF files use that version. The specification
-has been derived from a third party source [2] without reference to
-the original.
+GStreamer 1.16.x stable series
+WHAT IT IS
+----------
+This is GStreamer, a framework for streaming media.
 
 %package doc
 Summary: doc components for the gst-plugins-ugly package.
@@ -71,14 +66,16 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.16.0
+%setup -q -n gst-plugins-ugly-1.16.1
+cd %{_builddir}/gst-plugins-ugly-1.16.1
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-export LANG=C
-export SOURCE_DATE_EPOCH=1557094023
+export LANG=C.UTF-8
+export SOURCE_DATE_EPOCH=1572632637
+export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
 export NM=gcc-nm
@@ -90,17 +87,17 @@ export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
 make  %{?_smp_mflags}
 
 %check
-export LANG=C
+export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 make VERBOSE=1 V=1 %{?_smp_mflags} check
 
 %install
-export SOURCE_DATE_EPOCH=1557094023
+export SOURCE_DATE_EPOCH=1572632637
 rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gst-plugins-ugly
-cp COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/COPYING
+cp %{_builddir}/gst-plugins-ugly-1.16.1/COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
 %make_install
 %find_lang gst-plugins-ugly-1.0
 
@@ -158,7 +155,7 @@ cp COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/COPYING
 
 %files license
 %defattr(0644,root,root,0755)
-/usr/share/package-licenses/gst-plugins-ugly/COPYING
+/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
 
 %files locales -f gst-plugins-ugly-1.0.lang
 %defattr(-,root,root,-)

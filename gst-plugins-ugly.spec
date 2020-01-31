@@ -6,7 +6,7 @@
 #
 Name     : gst-plugins-ugly
 Version  : 1.16.2
-Release  : 22
+Release  : 23
 URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.2.tar.xz
 Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.2.tar.xz
 Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.16.2.tar.xz.asc
@@ -31,14 +31,6 @@ GStreamer 1.16.x stable series
 WHAT IT IS
 ----------
 This is GStreamer, a framework for streaming media.
-
-%package doc
-Summary: doc components for the gst-plugins-ugly package.
-Group: Documentation
-
-%description doc
-doc components for the gst-plugins-ugly package.
-
 
 %package lib
 Summary: lib components for the gst-plugins-ugly package.
@@ -74,7 +66,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1579640524
+export SOURCE_DATE_EPOCH=1580509790
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -83,67 +75,24 @@ export CFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FCFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export FFLAGS="$CFLAGS -O3 -ffat-lto-objects -flto=4 "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=4 "
-%reconfigure --disable-static
-make  %{?_smp_mflags}
+CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
+ninja -v -C builddir
 
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-make VERBOSE=1 V=1 %{?_smp_mflags} check
+meson test -C builddir
 
 %install
-export SOURCE_DATE_EPOCH=1579640524
-rm -rf %{buildroot}
 mkdir -p %{buildroot}/usr/share/package-licenses/gst-plugins-ugly
 cp %{_builddir}/gst-plugins-ugly-1.16.2/COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
-%make_install
+DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gst-plugins-ugly-1.0
 
 %files
 %defattr(-,root,root,-)
-
-%files doc
-%defattr(0644,root,root,0755)
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/ch01.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/ch02.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-1.0.devhelp2
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-a52dec.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-amrnbdec.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-amrnbenc.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-amrwbdec.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-cdiocddasrc.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-a52dec.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-amrnb.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-amrwbdec.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-asf.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-cdio.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-dvdlpcmdec.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-dvdread.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-dvdsub.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-mpeg2dec.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-realmedia.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-sid.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-x264.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-plugin-xingmux.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-rademux.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-rdtmanager.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-rmdemux.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-rtspreal.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-rtspwms.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-siddec.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-x264enc.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/gst-plugins-ugly-plugins-xingmux.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/home.png
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/index.html
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/left-insensitive.png
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/left.png
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/right-insensitive.png
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/right.png
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/style.css
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/up-insensitive.png
-/usr/share/gtk-doc/html/gst-plugins-ugly-plugins-1.0/up.png
 
 %files lib
 %defattr(-,root,root,-)

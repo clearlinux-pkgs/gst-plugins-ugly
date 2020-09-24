@@ -6,7 +6,7 @@
 #
 Name     : gst-plugins-ugly
 Version  : 1.18.0
-Release  : 24
+Release  : 25
 URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.0.tar.xz
 Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.0.tar.xz
 Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.0.tar.xz.asc

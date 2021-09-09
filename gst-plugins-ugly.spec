@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x5D2EEE6F6F349D7C (tim@centricular.com)
 #
 Name     : gst-plugins-ugly
-Version  : 1.18.4
-Release  : 30
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.4.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.4.tar.xz
-Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.4.tar.xz.asc
+Version  : 1.18.5
+Release  : 31
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.5.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.5.tar.xz
+Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.5.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -53,15 +53,15 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.18.4
-cd %{_builddir}/gst-plugins-ugly-1.18.4
+%setup -q -n gst-plugins-ugly-1.18.5
+cd %{_builddir}/gst-plugins-ugly-1.18.5
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1629757579
+export SOURCE_DATE_EPOCH=1631204618
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -82,8 +82,8 @@ meson test -C builddir
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gst-plugins-ugly
-cp %{_builddir}/gst-plugins-ugly-1.18.4/COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
-cp %{_builddir}/gst-plugins-ugly-1.18.4/docs/random/LICENSE %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/22990b105a08bb838c95fcc4bc5450c6dfdc79ac
+cp %{_builddir}/gst-plugins-ugly-1.18.5/COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
+cp %{_builddir}/gst-plugins-ugly-1.18.5/docs/random/LICENSE %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/22990b105a08bb838c95fcc4bc5450c6dfdc79ac
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gst-plugins-ugly-1.0
 

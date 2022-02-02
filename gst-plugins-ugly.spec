@@ -5,14 +5,15 @@
 # Source0 file verified with key 0x5D2EEE6F6F349D7C (tim@centricular.com)
 #
 Name     : gst-plugins-ugly
-Version  : 1.18.5
-Release  : 31
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.5.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.5.tar.xz
-Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.5.tar.xz.asc
+Version  : 1.18.6
+Release  : 32
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.6.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.6.tar.xz
+Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.18.6.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
+Requires: gst-plugins-ugly-filemap = %{version}-%{release}
 Requires: gst-plugins-ugly-lib = %{version}-%{release}
 Requires: gst-plugins-ugly-license = %{version}-%{release}
 Requires: gst-plugins-ugly-locales = %{version}-%{release}
@@ -27,10 +28,19 @@ WHAT IT IS
 ----------
 This is GStreamer, a framework for streaming media.
 
+%package filemap
+Summary: filemap components for the gst-plugins-ugly package.
+Group: Default
+
+%description filemap
+filemap components for the gst-plugins-ugly package.
+
+
 %package lib
 Summary: lib components for the gst-plugins-ugly package.
 Group: Libraries
 Requires: gst-plugins-ugly-license = %{version}-%{release}
+Requires: gst-plugins-ugly-filemap = %{version}-%{release}
 
 %description lib
 lib components for the gst-plugins-ugly package.
@@ -53,15 +63,21 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.18.5
-cd %{_builddir}/gst-plugins-ugly-1.18.5
+%setup -q -n gst-plugins-ugly-1.18.6
+cd %{_builddir}/gst-plugins-ugly-1.18.6
+pushd ..
+cp -a gst-plugins-ugly-1.18.6 buildavx2
+popd
+pushd ..
+cp -a gst-plugins-ugly-1.18.6 buildavx512
+popd
 
 %build
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1631204618
+export SOURCE_DATE_EPOCH=1643841785
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -72,23 +88,35 @@ export FFLAGS="$FFLAGS -O3 -ffat-lto-objects -flto=auto "
 export CXXFLAGS="$CXXFLAGS -O3 -ffat-lto-objects -flto=auto "
 CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddir
 ninja -v -C builddir
+CFLAGS="$CFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v3 -Wl,-z,x86-64-v3 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v3" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddiravx2
+ninja -v -C builddiravx2
+CFLAGS="$CFLAGS -m64 -march=x86-64-v4 -Wl,-z,x86-64-v4 -O3" CXXFLAGS="$CXXFLAGS -m64 -march=x86-64-v4 -Wl,-z,x86-64-v4 " LDFLAGS="$LDFLAGS -m64 -march=x86-64-v4" meson --libdir=lib64 --prefix=/usr --buildtype=plain   builddiravx512
+ninja -v -C builddiravx512
 
 %check
 export LANG=C.UTF-8
 export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
-meson test -C builddir
+meson test -C builddir --print-errorlogs
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gst-plugins-ugly
-cp %{_builddir}/gst-plugins-ugly-1.18.5/COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
-cp %{_builddir}/gst-plugins-ugly-1.18.5/docs/random/LICENSE %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/22990b105a08bb838c95fcc4bc5450c6dfdc79ac
+cp %{_builddir}/gst-plugins-ugly-1.18.6/COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
+cp %{_builddir}/gst-plugins-ugly-1.18.6/docs/random/LICENSE %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/22990b105a08bb838c95fcc4bc5450c6dfdc79ac
+DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
+DESTDIR=%{buildroot}-v4 ninja -C builddiravx512 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gst-plugins-ugly-1.0
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
+
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-gst-plugins-ugly
 
 %files lib
 %defattr(-,root,root,-)
@@ -97,6 +125,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib64/gstreamer-1.0/libgstdvdsub.so
 /usr/lib64/gstreamer-1.0/libgstrealmedia.so
 /usr/lib64/gstreamer-1.0/libgstxingmux.so
+/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)

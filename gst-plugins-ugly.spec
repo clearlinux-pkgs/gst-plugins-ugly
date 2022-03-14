@@ -5,11 +5,11 @@
 # Source0 file verified with key 0x5D2EEE6F6F349D7C (tim@centricular.com)
 #
 Name     : gst-plugins-ugly
-Version  : 1.20.0
-Release  : 33
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.0.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.0.tar.xz
-Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.0.tar.xz.asc
+Version  : 1.20.1
+Release  : 34
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.1.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.1.tar.xz
+Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.1.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -23,10 +23,15 @@ BuildRequires : pkgconfig(gstreamer-plugins-base-1.0)
 BuildRequires : valgrind
 
 %description
-GStreamer 1.20.x stable series
-WHAT IT IS
-----------
-This is GStreamer, a framework for streaming media.
+ASF Demuxer Plugin
+==================
+Overview
+--------
+This plugin is a demuxer for Microsoft's ASF Advanced Streaming Format
+or ASF [1]. This demuxer only supports ASF v1.0 since the vast
+majority of existing ASF files use that version. The specification
+has been derived from a third party source [2] without reference to
+the original.
 
 %package filemap
 Summary: filemap components for the gst-plugins-ugly package.
@@ -63,13 +68,13 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.20.0
-cd %{_builddir}/gst-plugins-ugly-1.20.0
+%setup -q -n gst-plugins-ugly-1.20.1
+cd %{_builddir}/gst-plugins-ugly-1.20.1
 pushd ..
-cp -a gst-plugins-ugly-1.20.0 buildavx2
+cp -a gst-plugins-ugly-1.20.1 buildavx2
 popd
 pushd ..
-cp -a gst-plugins-ugly-1.20.0 buildavx512
+cp -a gst-plugins-ugly-1.20.1 buildavx512
 popd
 
 %build
@@ -77,7 +82,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1643942189
+export SOURCE_DATE_EPOCH=1647284636
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -102,8 +107,8 @@ meson test -C builddir --print-errorlogs
 
 %install
 mkdir -p %{buildroot}/usr/share/package-licenses/gst-plugins-ugly
-cp %{_builddir}/gst-plugins-ugly-1.20.0/COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
-cp %{_builddir}/gst-plugins-ugly-1.20.0/docs/random/LICENSE %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/22990b105a08bb838c95fcc4bc5450c6dfdc79ac
+cp %{_builddir}/gst-plugins-ugly-1.20.1/COPYING %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/545f380fb332eb41236596500913ff8d582e3ead
+cp %{_builddir}/gst-plugins-ugly-1.20.1/docs/random/LICENSE %{buildroot}/usr/share/package-licenses/gst-plugins-ugly/22990b105a08bb838c95fcc4bc5450c6dfdc79ac
 DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot}-v4 ninja -C builddiravx512 install
 DESTDIR=%{buildroot} ninja -C builddir install

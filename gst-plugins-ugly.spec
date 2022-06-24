@@ -6,14 +6,13 @@
 #
 Name     : gst-plugins-ugly
 Version  : 1.20.3
-Release  : 36
+Release  : 37
 URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
 Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
 Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
-Requires: gst-plugins-ugly-filemap = %{version}-%{release}
 Requires: gst-plugins-ugly-lib = %{version}-%{release}
 Requires: gst-plugins-ugly-license = %{version}-%{release}
 Requires: gst-plugins-ugly-locales = %{version}-%{release}
@@ -33,19 +32,10 @@ majority of existing ASF files use that version. The specification
 has been derived from a third party source [2] without reference to
 the original.
 
-%package filemap
-Summary: filemap components for the gst-plugins-ugly package.
-Group: Default
-
-%description filemap
-filemap components for the gst-plugins-ugly package.
-
-
 %package lib
 Summary: lib components for the gst-plugins-ugly package.
 Group: Libraries
 Requires: gst-plugins-ugly-license = %{version}-%{release}
-Requires: gst-plugins-ugly-filemap = %{version}-%{release}
 
 %description lib
 lib components for the gst-plugins-ugly package.
@@ -82,7 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1655390736
+export SOURCE_DATE_EPOCH=1656039116
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -113,24 +103,29 @@ DESTDIR=%{buildroot}-v3 ninja -C builddiravx2 install
 DESTDIR=%{buildroot}-v4 ninja -C builddiravx512 install
 DESTDIR=%{buildroot} ninja -C builddir install
 %find_lang gst-plugins-ugly-1.0
-/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
-/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot}/usr/share/clear/optimized-elf/ %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx2 %{buildroot}-v3 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
+/usr/bin/elf-move.py avx512 %{buildroot}-v4 %{buildroot} %{buildroot}/usr/share/clear/filemap/filemap-%{name}
 
 %files
 %defattr(-,root,root,-)
 
-%files filemap
-%defattr(-,root,root,-)
-/usr/share/clear/filemap/filemap-gst-plugins-ugly
-
 %files lib
 %defattr(-,root,root,-)
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgstasf.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgstdvdlpcmdec.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgstdvdsub.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgstrealmedia.so
+/usr/lib64/glibc-hwcaps/x86-64-v3/libgstxingmux.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgstasf.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgstdvdlpcmdec.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgstdvdsub.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgstrealmedia.so
+/usr/lib64/glibc-hwcaps/x86-64-v4/libgstxingmux.so
 /usr/lib64/gstreamer-1.0/libgstasf.so
 /usr/lib64/gstreamer-1.0/libgstdvdlpcmdec.so
 /usr/lib64/gstreamer-1.0/libgstdvdsub.so
 /usr/lib64/gstreamer-1.0/libgstrealmedia.so
 /usr/lib64/gstreamer-1.0/libgstxingmux.so
-/usr/share/clear/optimized-elf/lib*
 
 %files license
 %defattr(0644,root,root,0755)

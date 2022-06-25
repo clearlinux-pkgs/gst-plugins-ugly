@@ -6,7 +6,7 @@
 #
 Name     : gst-plugins-ugly
 Version  : 1.20.3
-Release  : 37
+Release  : 38
 URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
 Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
 Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz.asc
@@ -72,7 +72,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1656039116
+export SOURCE_DATE_EPOCH=1656121045
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
@@ -111,16 +111,6 @@ DESTDIR=%{buildroot} ninja -C builddir install
 
 %files lib
 %defattr(-,root,root,-)
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgstasf.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgstdvdlpcmdec.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgstdvdsub.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgstrealmedia.so
-/usr/lib64/glibc-hwcaps/x86-64-v3/libgstxingmux.so
-/usr/lib64/glibc-hwcaps/x86-64-v4/libgstasf.so
-/usr/lib64/glibc-hwcaps/x86-64-v4/libgstdvdlpcmdec.so
-/usr/lib64/glibc-hwcaps/x86-64-v4/libgstdvdsub.so
-/usr/lib64/glibc-hwcaps/x86-64-v4/libgstrealmedia.so
-/usr/lib64/glibc-hwcaps/x86-64-v4/libgstxingmux.so
 /usr/lib64/gstreamer-1.0/libgstasf.so
 /usr/lib64/gstreamer-1.0/libgstdvdlpcmdec.so
 /usr/lib64/gstreamer-1.0/libgstdvdsub.so

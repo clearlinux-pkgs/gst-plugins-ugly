@@ -6,13 +6,14 @@
 #
 Name     : gst-plugins-ugly
 Version  : 1.20.3
-Release  : 38
+Release  : 39
 URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
 Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz
 Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.20.3.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
+Requires: gst-plugins-ugly-filemap = %{version}-%{release}
 Requires: gst-plugins-ugly-lib = %{version}-%{release}
 Requires: gst-plugins-ugly-license = %{version}-%{release}
 Requires: gst-plugins-ugly-locales = %{version}-%{release}
@@ -32,10 +33,19 @@ majority of existing ASF files use that version. The specification
 has been derived from a third party source [2] without reference to
 the original.
 
+%package filemap
+Summary: filemap components for the gst-plugins-ugly package.
+Group: Default
+
+%description filemap
+filemap components for the gst-plugins-ugly package.
+
+
 %package lib
 Summary: lib components for the gst-plugins-ugly package.
 Group: Libraries
 Requires: gst-plugins-ugly-license = %{version}-%{release}
+Requires: gst-plugins-ugly-filemap = %{version}-%{release}
 
 %description lib
 lib components for the gst-plugins-ugly package.
@@ -109,6 +119,10 @@ DESTDIR=%{buildroot} ninja -C builddir install
 %files
 %defattr(-,root,root,-)
 
+%files filemap
+%defattr(-,root,root,-)
+/usr/share/clear/filemap/filemap-gst-plugins-ugly
+
 %files lib
 %defattr(-,root,root,-)
 /usr/lib64/gstreamer-1.0/libgstasf.so
@@ -116,6 +130,7 @@ DESTDIR=%{buildroot} ninja -C builddir install
 /usr/lib64/gstreamer-1.0/libgstdvdsub.so
 /usr/lib64/gstreamer-1.0/libgstrealmedia.so
 /usr/lib64/gstreamer-1.0/libgstxingmux.so
+/usr/share/clear/optimized-elf/other*
 
 %files license
 %defattr(0644,root,root,0755)

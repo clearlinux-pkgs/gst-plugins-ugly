@@ -6,11 +6,11 @@
 # Source0 file verified with key 0x5D2EEE6F6F349D7C (tim@centricular.com)
 #
 Name     : gst-plugins-ugly
-Version  : 1.22.4
-Release  : 54
-URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.4.tar.xz
-Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.4.tar.xz
-Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.4.tar.xz.asc
+Version  : 1.22.5
+Release  : 55
+URL      : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.5.tar.xz
+Source0  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.5.tar.xz
+Source1  : https://gstreamer.freedesktop.org/src/gst-plugins-ugly/gst-plugins-ugly-1.22.5.tar.xz.asc
 Summary  : No detailed summary available
 Group    : Development/Tools
 License  : GPL-2.0 LGPL-2.1
@@ -62,13 +62,13 @@ locales components for the gst-plugins-ugly package.
 
 
 %prep
-%setup -q -n gst-plugins-ugly-1.22.4
-cd %{_builddir}/gst-plugins-ugly-1.22.4
+%setup -q -n gst-plugins-ugly-1.22.5
+cd %{_builddir}/gst-plugins-ugly-1.22.5
 pushd ..
-cp -a gst-plugins-ugly-1.22.4 buildavx2
+cp -a gst-plugins-ugly-1.22.5 buildavx2
 popd
 pushd ..
-cp -a gst-plugins-ugly-1.22.4 buildavx512
+cp -a gst-plugins-ugly-1.22.5 buildavx512
 popd
 
 %build
@@ -76,7 +76,7 @@ export http_proxy=http://127.0.0.1:9/
 export https_proxy=http://127.0.0.1:9/
 export no_proxy=localhost,127.0.0.1,0.0.0.0
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1687297723
+export SOURCE_DATE_EPOCH=1689876040
 export GCC_IGNORE_WERROR=1
 export AR=gcc-ar
 export RANLIB=gcc-ranlib
